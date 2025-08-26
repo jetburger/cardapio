@@ -14,13 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const minOrderWarning = document.getElementById('min-order-warning');
     const submitButton = document.querySelector('button[type="submit"]');
 
+    // --- NOVIDADE: Referência para o novo aviso ---
+    const burgerRequiredWarning = document.getElementById('burger-required-warning');
+
     function renderCart() {
         cartSummary.innerHTML = '';
         if (cart.length === 0) {
             cartSummary.innerHTML = '<p>Seu carrinho está vazio.</p>';
             totalElement.textContent = 'R$ 0,00';
             cartFooter.classList.remove('visible');
-            validateMinOrder(0);
+            validateOrder(); // --- ATUALIZADO: Chama a nova função de validação geral ---
             return;
         }
         let total = 0;
@@ -46,31 +49,57 @@ document.addEventListener('DOMContentLoaded', () => {
         totalElement.textContent = totalFormatted;
         footerCartTotal.textContent = totalFormatted;
         cartFooter.classList.add('visible');
-        validateMinOrder(total);
+
+        validateOrder(); // --- ATUALIZADO: Chama a nova função de validação geral ---
         addRemoveButtonListeners();
     }
 
-    function validateMinOrder(total) {
+    // --- NOVIDADE: Uma função de validação que verifica TUDO ---
+    function validateOrder() {
+        const total = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+        const hasBurger = cart.some(item => item.type === 'burger');
         const missingAmount = valorMinimoPedido - total;
+        let isOrderValid = true;
+
+        // Esconde os avisos por padrão
+        minOrderWarning.style.display = 'none';
+        burgerRequiredWarning.style.display = 'none';
+
+        // Validação 1: Pedido mínimo
         if (total > 0 && total < valorMinimoPedido) {
-            minOrderWarning.textContent = `Faltam R$ ${missingAmount.toFixed(2).replace('.', ',')} para atingir o pedido mínimo de R$ ${valorMinimoPedido.toFixed(2).replace('.', ',')}.`;
+            minOrderWarning.textContent = `Faltam R$ ${missingAmount.toFixed(2).replace('.', ',')} para o pedido mínimo de R$ ${valorMinimoPedido.toFixed(2).replace('.', ',')}.`;
             minOrderWarning.style.display = 'block';
-            submitButton.disabled = true;
-        } else {
-            minOrderWarning.style.display = 'none';
-            submitButton.disabled = false;
+            isOrderValid = false;
         }
-        if (total === 0) {
-            submitButton.disabled = true;
+
+        // Validação 2: Presença de um hambúrguer
+        if (cart.length > 0 && !hasBurger) {
+            burgerRequiredWarning.textContent = 'É necessário adicionar pelo menos um hambúrguer ao seu pedido.';
+            burgerRequiredWarning.style.display = 'block';
+            isOrderValid = false;
         }
+
+        // Habilita ou desabilita o botão com base na validade geral
+        submitButton.disabled = !isOrderValid || cart.length === 0;
     }
 
     function handleAddToCart(event) {
         const button = event.target;
         const menuItem = button.closest('.menu-item');
+
+        // --- NOVIDADE: Captura o 'type' do item ---
+        const itemType = menuItem.dataset.type;
         const baseName = menuItem.dataset.name;
         const basePrice = parseFloat(menuItem.dataset.price);
-        const newItem = { id: Date.now(), baseName: baseName, totalPrice: basePrice, addons: [] };
+
+        const newItem = {
+            id: Date.now(),
+            baseName: baseName,
+            totalPrice: basePrice,
+            addons: [],
+            type: itemType // Armazena o tipo no objeto do carrinho
+        };
+
         const addonCheckboxes = menuItem.querySelectorAll('.addon-item input[type="checkbox"]:checked');
         addonCheckboxes.forEach(checkbox => {
             const addonName = checkbox.dataset.addonName;
@@ -98,37 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkoutForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        if (cart.length === 0) { alert('Seu carrinho está vazio!'); return; }
+        // A validação já desabilita o botão, então um clique aqui significa que o pedido é válido.
+        // O código restante permanece o mesmo...
         const name = document.getElementById('name').value;
         const address = document.getElementById('address').value;
         if (!name || !address) { alert('Por favor, preencha seu nome e endereço.'); return; }
-
-        // --- NOVIDADE: GERANDO O NÚMERO DO PEDIDO ---
         const now = new Date();
         const pad = (num) => String(num).padStart(2, '0');
         const orderNumber = `${pad(now.getDate())}${pad(now.getMonth() + 1)}-${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
-        // --- FIM DA NOVIDADE ---
-
-        let orderMessage = `--- NOVO PEDIDO #${orderNumber} ---\n`; // <-- NOVIDADE AQUI
-        orderMessage += `      *3D Burger*\n\n`;
-        orderMessage += `*CLIENTE:*\n`;
-        orderMessage += `- Nome: ${name}\n`;
-        orderMessage += `- Endereço: ${address}\n\n`;
-        orderMessage += `--------------------\n\n`;
-        orderMessage += `*PEDIDO:*\n`;
-
+        let orderMessage = `--- NOVO PEDIDO #${orderNumber} ---\n      *JetBurger*\n\n*CLIENTE:*\n- Nome: ${name}\n- Endereço: ${address}\n\n--------------------\n\n*PEDIDO:*\n`;
         cart.forEach(item => {
             orderMessage += `- *${item.baseName}*\n`;
             if (item.addons.length > 0) {
-                item.addons.forEach(addon => { orderMessage += `  + _Adicional: ${addon.name}_\n`; });
+                item.addons.forEach(addon => { orderMessage += `  + _Adicional: ${item.baseName}_\n`; });
             }
         });
-
         const totalValue = document.getElementById('total').textContent;
-        orderMessage += `\n--------------------\n\n`;
-        orderMessage += `*TOTAL:* ${totalValue}\n`;
-        orderMessage += `*PAGAMENTO:* Na entrega`;
-
+        orderMessage += `\n--------------------\n\n*TOTAL:* ${totalValue}\n*PAGAMENTO:* Na entrega`;
         const encodedMessage = encodeURIComponent(orderMessage);
         const whatsappURL = `https://wa.me/${seuNumeroDeWhatsApp}?text=${encodedMessage}`;
         window.open(whatsappURL, '_blank');
@@ -137,5 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addToCartButtons.forEach(button => { button.addEventListener('click', handleAddToCart); });
     viewCartBtn.addEventListener('click', () => { document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' }); });
 
+    // Inicia a renderização e validação
     renderCart();
 });

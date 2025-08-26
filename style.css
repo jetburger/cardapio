@@ -1,60 +1,58 @@
-/* --- TEMA JETBURGER (FINAL) --- */
+/* --- TEMA IFOOD (REVISADO) --- */
 :root {
-    --jetburger-gold: #D4AF37; /* Dourado da sua logo */
-    --jetburger-black: #1A1A1A; /* Preto mais suave para o fundo */
-    --jetburger-text: #333;
-    --jetburger-text-light: #717171;
-    --jetburger-background: #F7F7F7; /* Fundo geral claro */
-    --jetburger-white: #FFFFFF;
-    --jetburger-border: #E6E6E6;
+    --ifood-red: #EA1D2C;
+    --ifood-text: #333;
+    --ifood-text-light: #717171;
+    --ifood-background: #F7F7F7;
+    --ifood-white: #FFFFFF;
+    --ifood-border: #E6E6E6;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--jetburger-background);
-    color: var(--jetburger-text);
+    background-color: var(--ifood-background);
+    color: var(--ifood-text);
     margin: 0;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* --- CABEÇALHO DO RESTAURANTE (ESTILO IFOOD CLÁSSICO - REVISADO PARA O BANNER) --- */
+/* --- CABEÇALHO DO RESTAURANTE --- */
 .restaurant-header {
     width: 100%;
     position: relative;
     text-align: center;
-    background-color: var(--jetburger-black); /* Fundo escuro para o banner */
-    /* Ajustado: Removemos o padding-bottom aqui e vamos ajustar o banner diretamente */
+    background-color: var(--ifood-white);
+    padding-bottom: 75px;
 }
 .header-banner {
     width: 100%;
-    /* REMOVIDO: height: 150px; */ /* Deixa a altura automática */
+    height: 180px;
     object-fit: cover;
     object-position: center;
     display: block;
-    max-height: 200px; /* Limita a altura máxima do banner para não ficar muito grande */
-    min-height: 120px; /* Altura mínima para garantir que sempre apareça bem */
 }
 .restaurant-info {
-    background-color: var(--jetburger-white);
+    background-color: var(--ifood-white);
     padding: 15px;
     position: absolute;
-    /* ALTERADO: bottom: -60px; */ /* Ajuste a posição para sobrepor o banner e o container */
-    bottom: -80px; /* Mais para baixo para o card ficar mais exposto */
+    bottom: -75px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    min-width: 250px;
-    width: 80%; /* Para que ele não ocupe 100% e tenha um respiro nas laterais */
-    max-width: 400px; /* Limita a largura máxima do card de info */
+    width: 90%;
+    max-width: 350px;
 }
 .restaurant-logo {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 4px solid var(--jetburger-white);
+    border: 4px solid var(--ifood-white);
     margin-top: -75px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     object-fit: cover;
@@ -66,11 +64,11 @@ body {
     font-size: 1.8em;
     font-weight: 700;
     margin: 10px 0 5px 0;
-    color: var(--jetburger-black);
+    color: var(--ifood-text);
 }
 .restaurant-info p {
     margin: 0;
-    color: var(--jetburger-text-light);
+    color: var(--ifood-text-light);
     font-size: 0.9em;
 }
 
@@ -84,134 +82,45 @@ body {
 .menu-category {
     font-size: 1.2em;
     font-weight: bold;
-    /* ALTERADO: margin-top: 80px; */ /* Espaço para a info-card não cobrir o menu */
-    margin-top: 100px; /* Mais espaço para não sobrepor */
+    margin-top: 100px;
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--jetburger-border);
+    border-bottom: 1px solid var(--ifood-border);
 }
-
-/* --- O RESTO DO SEU CSS CONTINUA AQUI SEM ALTERAÇÕES --- */
 
 /* --- ITEM DO CARDÁPIO --- */
 .menu-item {
     display: flex;
-    background-color: var(--jetburger-white);
-    border: 1px solid var(--jetburger-border);
+    background-color: var(--ifood-white);
+    border: 1px solid var(--ifood-border);
     border-radius: 8px;
     margin-bottom: 15px;
     padding: 15px;
     gap: 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
-.item-details {
-    flex-grow: 1;
-}
-.item-details h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.1em;
-    font-weight: 500;
-}
-.item-description {
-    font-size: 0.9em;
-    color: var(--jetburger-text-light);
-    margin: 0 0 10px 0;
-}
-.price {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: var(--jetburger-black);
-    margin-top: 10px;
-}
-.item-image {
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 8px;
-    flex-shrink: 0;
-}
-.item-action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+.item-details { flex-grow: 1; }
+.item-details h3 { margin: 0 0 5px 0; font-size: 1.1em; font-weight: 500; }
+.item-description { font-size: 0.9em; color: var(--ifood-text-light); margin: 0 0 10px 0; }
+.price { font-size: 1.1em; font-weight: bold; color: var(--ifood-text); margin-top: 10px; }
+.item-image { width: 110px; height: 110px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.item-action { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-/* --- ESTILOS PROFISSIONAIS PARA O CHECKOUT (VERSÃO FINAL) --- */
-#checkout h2 {
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: 500;
-    margin-bottom: 25px;
-}
-
-#cart-summary {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.cart-item {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--jetburger-border);
-}
-
-.cart-item:first-child {
-    border-top: 1px solid var(--jetburger-border);
-}
-
-.final-total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
-
-#total {
-    color: var(--jetburger-black);
-}
-
-#checkout-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-group label {
-    font-weight: 500;
-    margin-bottom: 8px;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid var(--jetburger-border);
-    border-radius: 8px;
-    font-size: 1em;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    border-color: var(--jetburger-gold);
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
-    outline: none;
-}
+/* --- ESTILOS PROFISSIONAIS PARA O CHECKOUT --- */
+#checkout h2 { text-align: center; font-size: 1.2em; font-weight: 500; margin-bottom: 25px; }
+#cart-summary { background-color: transparent; border: none; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.cart-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--ifood-border); }
+.cart-item:first-child { border-top: 1px solid var(--ifood-border); }
+.final-total { display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; padding: 20px 0; margin-bottom: 20px; }
+#total { color: var(--ifood-text); }
+#checkout-form { display: flex; flex-direction: column; gap: 20px; }
+.form-group label { font-weight: 500; margin-bottom: 8px; font-size: 1em; display: flex; align-items: center; gap: 8px; }
+.form-group input { width: 100%; padding: 15px; border: 1px solid var(--ifood-border); border-radius: 8px; font-size: 1em; box-sizing: border-box; }
+.form-group input:focus { border-color: var(--ifood-red); box-shadow: 0 0 5px rgba(234, 29, 44, 0.2); outline: none; }
 
 button[type="submit"] {
-    background-color: var(--jetburger-gold);
-    color: var(--jetburger-white);
+    background-color: var(--ifood-red);
+    color: var(--ifood-white);
     padding: 18px;
     border: none;
     border-radius: 8px;
@@ -220,30 +129,22 @@ button[type="submit"] {
     cursor: pointer;
     transition: all 0.2s;
 }
-
-button[type="submit"]:hover {
-    background-color: #c49a2d;
-    transform: scale(1.02);
-}
+button[type="submit"]:hover { background-color: #c81a25; transform: scale(1.02); }
 
 /* --- ESTILOS PARA ADICIONAIS --- */
-.addons-section {
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--jetburger-border);
-}
-.addons-section h4 { margin: 0 0 10px 0; font-size: 0.9em; font-weight: 500; color: var(--jetburger-text-light); }
+.addons-section { margin-top: 15px; padding-top: 10px; border-top: 1px dashed var(--ifood-border); }
+.addons-section h4 { margin: 0 0 10px 0; font-size: 0.9em; font-weight: 500; color: var(--ifood-text-light); }
 .addon-item { display: flex; align-items: center; margin-bottom: 5px; }
 .addon-item input[type="checkbox"] { margin-right: 8px; width: 16px; height: 16px; }
-.addon-item label { font-size: 0.9em; color: var(--jetburger-text); display: flex; justify-content: space-between; width: 100%; }
-.addon-item label span { color: var(--jetburger-text-light); font-weight: 500; }
-.add-to-cart-btn { background-color: var(--jetburger-white); color: var(--jetburger-gold); border: 1px solid var(--jetburger-gold); border-radius: 4px; padding: 8px 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-.add-to-cart-btn:hover { background-color: var(--jetburger-gold); color: var(--jetburger-white); }
+.addon-item label { font-size: 0.9em; color: var(--ifood-text); display: flex; justify-content: space-between; width: 100%; }
+.addon-item label span { color: var(--ifood-text-light); font-weight: 500; }
+.add-to-cart-btn { background-color: var(--ifood-white); color: var(--ifood-red); border: 1px solid var(--ifood-red); border-radius: 4px; padding: 8px 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+.add-to-cart-btn:hover { background-color: var(--ifood-red); color: var(--ifood-white); }
 .cart-item-details { flex-grow: 1; }
 .cart-item-name { margin: 0; }
-.cart-item-addons { font-size: 0.8em; color: var(--jetburger-text-light); line-height: 1.4; }
+.cart-item-addons { font-size: 0.8em; color: var(--ifood-text-light); line-height: 1.4; }
 .cart-item-price { font-weight: 500; white-space: nowrap; margin: 0 10px; }
-.remove-from-cart-btn { background-color: transparent; border: 1px solid var(--jetburger-border); color: var(--jetburger-gold); width: 24px; height: 24px; border-radius: 50%; font-size: 1em; font-weight: bold; cursor: pointer; line-height: 22px; padding: 0; flex-shrink: 0; }
+.remove-from-cart-btn { background-color: transparent; border: 1px solid var(--ifood-border); color: var(--ifood-red); width: 24px; height: 24px; border-radius: 50%; font-size: 1em; font-weight: bold; cursor: pointer; line-height: 22px; padding: 0; flex-shrink: 0; }
 
 /* --- ESTILOS PARA O RODAPÉ FIXO DO CARRINHO --- */
 .cart-footer {
@@ -251,77 +152,55 @@ button[type="submit"]:hover {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(45deg, var(--jetburger-gold), #b38e2d);
-    color: var(--jetburger-white);
+    background-color: var(--ifood-white);
+    color: var(--ifood-text);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
     box-sizing: border-box;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
     transform: translateY(100%);
     transition: transform 0.3s ease-in-out;
 }
 .cart-footer.visible { transform: translateY(0); }
 .footer-total { display: flex; flex-direction: column; }
-.total-label { font-size: 0.8em; opacity: 0.8; }
+.total-label { font-size: 0.8em; color: var(--ifood-text-light); }
 #footer-cart-total { font-size: 1.2em; font-weight: bold; }
-#view-cart-btn { background-color: transparent; border: 2px solid var(--jetburger-white); color: var(--jetburger-white); padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
-#view-cart-btn:hover { background-color: var(--jetburger-white); color: #b38e2d; }
+#view-cart-btn {
+    background-color: var(--ifood-red);
+    border: none;
+    color: var(--ifood-white);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#view-cart-btn:hover { background-color: #c81a25; }
 
 /* --- ESTILOS PARA VALIDAÇÃO DE PEDIDO MÍNIMO --- */
-#min-order-warning {
+#min-order-warning, #burger-required-warning {
     text-align: center;
     font-weight: 500;
-    color: var(--jetburger-gold);
-    background-color: #fcf8e3;
+    color: var(--ifood-red);
+    background-color: #fbeae9;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 20px;
     display: none;
 }
-button[type="submit"]:disabled {
-    background-color: #b0b0b0;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
+button[type="submit"]:disabled { background-color: #b0b0b0; cursor: not-allowed; box-shadow: none; transform: none; }
 
 /* --- RESPONSIVIDADE --- */
 @media (max-width: 600px) {
-    .restaurant-header {
-        /* Ajustado: padding-bottom removido daqui */
-    }
-    .header-banner {
-        max-height: 150px; /* Um pouco menos alto em mobile, mas ainda visível */
-        min-height: 100px;
-    }
-    .restaurant-info {
-        padding: 10px;
-        font-size: 0.9em;
-        width: calc(100% - 30px);
-        bottom: -70px; /* Ajuste para mobile */
-        max-width: none; /* Remove a largura máxima para se ajustar ao mobile */
-    }
-    .restaurant-logo {
-        width: 80px;
-        height: 80px;
-        margin-top: -60px;
-    }
-    .menu-category {
-        margin-top: 80px; /* Espaço para a info-card não cobrir o menu */
-    }
-    .menu-item {
-        flex-wrap: wrap;
-    }
-    .item-image {
-        order: -1;
-        width: 100%;
-        height: 150px;
-    }
-    .item-action {
-        width: 100%;
-        justify-content: flex-end;
-    }
+    .restaurant-header { padding-bottom: 70px; }
+    .header-banner { height: 140px; }
+    .restaurant-info { padding: 10px; font-size: 0.9em; width: calc(100% - 30px); bottom: -60px; max-width: none; }
+    .restaurant-logo { width: 80px; height: 80px; margin-top: -60px; }
+    .menu-category { margin-top: 90px; }
+    .menu-item { flex-wrap: wrap; }
+    .item-image { order: -1; width: 100%; height: 150px; }
+    .item-action { width: 100%; justify-content: flex-end; }
 }
