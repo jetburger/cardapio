@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Burger - Peça Online!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="restaurant-header">
+    <img class="header-banner" src="imagens/banner-digital.png" alt="Banner da 3D Burger">
+    <div class="restaurant-info">
+        <img class="restaurant-logo" src="imagens/logo.png" alt="Logo da 3D Burger">
+        <h1>3D Burger</h1>
+        <p>Hambúrgueres Artesanais • Lanches</p>
+    </div>
+</header>
+
+<div class="container">
+    <section id="menu">
+        <h2 class="menu-category">Cardápio</h2>
+
+        <div class="menu-item" data-name="Burger Insano" data-price="29.90">
+            <div class="item-details">
+                <h3>Burger Insano</h3>
+                <p class="item-description">Pão brioche, burger 180g, queijo cheddar, bacon e molho especial.</p>
+
+                <div class="addons-section">
+                    <h4>Turbine seu lanche:</h4>
+                    <div class="addon-item">
+                        <input type="checkbox" id="bacon-extra-1" data-addon-name="Bacon Extra" data-addon-price="4.50">
+                        <label for="bacon-extra-1">Bacon Extra <span>+ R$ 4,50</span></label>
+                    </div>
+                    <div class="addon-item">
+                        <input type="checkbox" id="cheddar-extra-1" data-addon-name="Cheddar Extra" data-addon-price="3.00">
+                        <label for="cheddar-extra-1">Cheddar Extra <span>+ R$ 3,00</span></label>
+                    </div>
+                </div>
+
+                <p class="price">a partir de R$ 29,90</p>
+            </div>
+            <img class="item-image" src="imagens/burger-insano.jpg" alt="Burger Insano">
+            <div class="item-action">
+                <button class="add-to-cart-btn">Adicionar</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-name="Frango Crocante" data-price="26.50">
+            <div class="item-details">
+                <h3>Frango Crocante</h3>
+                <p class="item-description">Pão, frango empanado, alface, tomate e maionese da casa.</p>
+
+                <div class="addons-section">
+                    <h4>Turbine seu lanche:</h4>
+                    <div class="addon-item">
+                        <input type="checkbox" id="bacon-extra-2" data-addon-name="Bacon Extra" data-addon-price="4.50">
+                        <label for="bacon-extra-2">Bacon Extra <span>+ R$ 4,50</span></label>
+                    </div>
+                </div>
+
+                <p class="price">a partir de R$ 26,50</p>
+            </div>
+            <img class="item-image" src="imagens/frango-crocante.png" alt="Frango Crocante">
+            <div class="item-action">
+                <button class="add-to-cart-btn">Adicionar</button>
+            </div>
+        </div>
+
+        <div class="menu-item" data-name="Coca-Cola Lata" data-price="5.00">
+            <div class="item-details">
+                <h3>Coca-Cola Lata</h3>
+                <p class="item-description">Lata de 350ml bem gelada.</p>
+                <p class="price">R$ 5,00</p>
+            </div>
+            <img class="item-image" src="imagens/coca-cola.jpg" alt="Coca-Cola Lata">
+            <div class="item-action">
+                <button class="add-to-cart-btn">Adicionar</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="checkout">
+        <h2>✔ Quase lá! Confira seu pedido:</h2>
+
+        <div id="cart-summary">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+
+        <div class="final-total">
+            <span>Total</span>
+            <span id="total">R$ 0,00</span>
+        </div>
+
+        <div id="min-order-warning"></div>
+
+        <form id="checkout-form">
+            <div class="form-group">
+                <label for="name">📝 Seu Nome:</label>
+                <input type="text" id="name" required placeholder="Digite seu nome completo">
+            </div>
+            <div class="form-group">
+                <label for="address">📍 Endereço de Entrega:</label>
+                <input type="text" id="address" required placeholder="Rua, Número, Bairro e Referência">
+            </div>
+            <button type="submit">Confirmar e Enviar Pedido</button>
+        </form>
+    </section>
+</div>
+
+<script src="script.js"></script>
+<div class="cart-footer">
+    <div class="footer-total">
+        <span class="total-label">Total do Carrinho:</span>
+        <span id="footer-cart-total">R$ 0,00</span>
+    </div>
+    <button id="view-cart-btn">Ver Carrinho</button>
+</div>
+
+</body>
+</html>

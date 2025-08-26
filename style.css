@@ -1,0 +1,432 @@
+/* --- TEMA BASEADO NO IFOOD --- */
+:root {
+    --ifood-red: #EA1D2C;
+    --ifood-text: #333;
+    --ifood-text-light: #717171;
+    --ifood-background: #F7F7F7;
+    --ifood-white: #FFFFFF;
+    --ifood-border: #E6E6E6;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--ifood-background);
+    color: var(--ifood-text);
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- CABEÇALHO DO RESTAURANTE --- */
+.restaurant-header {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+.header-banner {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.restaurant-info {
+    background-color: var(--ifood-white);
+    padding: 15px;
+    margin-top: -50px; /* Puxa para cima do banner */
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.restaurant-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid var(--ifood-white);
+    margin-top: -40px; /* Metade para cima, metade para baixo */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.restaurant-info h1 {
+    font-size: 1.5em;
+    margin: 10px 0 5px 0;
+}
+.restaurant-info p {
+    margin: 0;
+    color: var(--ifood-text-light);
+}
+
+/* --- CONTAINER GERAL --- */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.menu-category {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ifood-border);
+}
+
+/* --- ITEM DO CARDÁPIO --- */
+.menu-item {
+    display: flex;
+    background-color: var(--ifood-white);
+    border: 1px solid var(--ifood-border);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    gap: 15px;
+}
+.item-details {
+    flex-grow: 1;
+}
+.item-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+.item-description {
+    font-size: 0.9em;
+    color: var(--ifood-text-light);
+    margin: 0 0 10px 0;
+}
+.price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--ifood-text);
+}
+.item-image {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.item-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--ifood-border);
+    border-radius: 4px;
+}
+.quantity-control button {
+    background-color: transparent;
+    border: none;
+    color: var(--ifood-red);
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+}
+.quantity-control .quantity {
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0 10px;
+}
+
+/* --- CHECKOUT --- */
+/* --- ESTILOS PROFISSIONAIS PARA O CHECKOUT (VERSÃO FINAL) --- */
+
+#checkout h2 {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+#cart-summary {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Zeramos o gap para o controle total das bordas */
+}
+
+/* Novo estilo para os itens DENTRO do checkout */
+.cart-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--ifood-border);
+}
+
+.cart-item:first-child {
+    border-top: 1px solid var(--ifood-border);
+}
+
+/* Total final, acima do formulário */
+.final-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+#total {
+    color: var(--ifood-text);
+}
+
+/* Formulário e Botão Final */
+#checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px; /* Aumenta o padding para um toque mais moderno */
+    border: 1px solid var(--ifood-border);
+    border-radius: 8px; /* Bordas mais arredondadas */
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: var(--ifood-red);
+    box-shadow: 0 0 5px rgba(234, 29, 44, 0.2);
+    outline: none;
+}
+
+button[type="submit"] {
+    background-color: var(--ifood-red);
+    color: var(--ifood-white);
+    padding: 18px; /* Botão mais robusto */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #c81a25;
+    transform: scale(1.02); /* Efeito de crescimento sutil */
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 600px) {
+    .menu-item {
+        flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+    }
+    .item-image {
+        order: -1; /* Joga a imagem para o início (topo) */
+        width: 100%;
+        height: 150px; /* Imagem maior no mobile */
+    }
+    .item-action {
+        width: 100%;
+        justify-content: flex-end; /* Joga os botões para a direita */
+    }
+}
+
+/* --- ESTILOS PARA ADICIONAIS E CARRINHO ATUALIZADO --- */
+
+.addons-section {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--ifood-border);
+}
+
+.addons-section h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--ifood-text-light);
+}
+
+.addon-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.addon-item input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+.addon-item label {
+    font-size: 0.9em;
+    color: var(--ifood-text);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.addon-item label span {
+    color: var(--ifood-text-light);
+    font-weight: 500;
+}
+
+.add-to-cart-btn {
+    background-color: var(--ifood-white);
+    color: var(--ifood-red);
+    border: 1px solid var(--ifood-red);
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--ifood-red);
+    color: var(--ifood-white);
+}
+
+.price {
+    margin-top: 10px;
+}
+
+/* Estilos para os itens dentro do carrinho */
+#cart-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-name {
+    margin: 0;
+}
+
+.cart-item-addons {
+    font-size: 0.8em;
+    color: var(--ifood-text-light);
+    line-height: 1.4;
+}
+
+.cart-item-price {
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 0 10px;
+}
+
+.remove-from-cart-btn {
+    background-color: transparent;
+    border: 1px solid var(--ifood-border);
+    color: var(--ifood-red);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 22px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* --- ESTILOS PARA O RODAPÉ FIXO DO CARRINHO --- */
+
+/* Adiciona um espaço no final do container para o rodapé não cobrir o conteúdo */
+.container {
+    padding-bottom: 120px;
+}
+
+.cart-footer {
+    position: fixed; /* Fica fixo na tela */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(45deg, #2ecc71, #27ae60); /* Gradiente verde bacana */
+    color: var(--ifood-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+    z-index: 1000; /* Garante que fique acima de tudo */
+
+    /* Efeito de entrada e saída */
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Classe que o JavaScript vai adicionar para mostrar o rodapé */
+.cart-footer.visible {
+    transform: translateY(0);
+}
+
+.footer-total {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-label {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+#footer-cart-total {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#view-cart-btn {
+    background-color: transparent;
+    border: 2px solid var(--ifood-white);
+    color: var(--ifood-white);
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#view-cart-btn:hover {
+    background-color: var(--ifood-white);
+    color: #27ae60;
+}
+
+/* --- ESTILOS PARA VALIDAÇÃO DE PEDIDO MÍNIMO --- */
+
+#min-order-warning {
+    text-align: center;
+    font-weight: 500;
+    color: var(--ifood-red);
+    background-color: #fbeae9; /* Fundo rosa bem claro */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none; /* Começa escondido */
+}
+
+/* Estilo para o botão de enviar quando estiver desabilitado */
+button[type="submit"]:disabled {
+    background-color: #b0b0b0; /* Cinza */
+    cursor: not-allowed; /* Ícone de "proibido" */
+    box-shadow: none;
+    transform: none;
+}
