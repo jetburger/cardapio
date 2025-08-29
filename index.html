@@ -24,14 +24,13 @@
 <div class="container">
     <section id="menu">
         <div id="category-filters">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="burger">Hambúrgueres</button>
-            <button class="filter-btn" data-filter="drink">Bebidas</button>
+            <button class="filter-btn active" data-filter="burger">🍔 Hambúrgueres</button>
+            <button class="filter-btn" data-filter="drink">🥤 Bebidas</button>
         </div>
 
-        <h2 class="menu-category" data-category="burger">🍔 Hambúrgueres</h2>
-
+        <h2 class="menu-category" id="category-burger">🍔 Hambúrgueres</h2>
         <div class="menu-item" data-name="Clássico" data-price="25.00" data-type="burger">
+            <img class="item-image" src="imagens/burger-classico.jpg" alt="Hambúrguer Clássico">
             <div class="item-details">
                 <h3>Burger Clássico</h3>
                 <p class="item-description">Pão, um delicioso hambúrguer 150g angus, alface, tomate, queijo mussarela, molho da casa, pepino.</p>
@@ -40,42 +39,33 @@
                     <div class="addon-item"><input type="checkbox" id="bacon-extra-classico" data-addon-name="Bacon Extra" data-addon-price="4.50"><label for="bacon-extra-classico">Bacon Extra <span>+ R$ 4,50</span></label></div>
                     <div class="addon-item"><input type="checkbox" id="cheddar-extra-classico" data-addon-name="Cheddar Extra" data-addon-price="3.00"><label for="cheddar-extra-classico">Cheddar Extra <span>+ R$ 3,00</span></label></div>
                 </div>
-                <p class="price">a partir de R$ 25,00</p>
-            </div>
-            <div class="item-image-action-wrapper">
-                <img class="item-image" src="imagens/burger-classico.jpg" alt="Hambúrguer Clássico">
-                <div class="item-action"><button class="add-to-cart-btn">Adicionar</button></div>
-            </div>
-        </div>
-
-        <div class="menu-item" data-name="Bacon" data-price="28.00" data-type="burger">
-            <div class="item-details">
-                <h3>Burger Bacon</h3>
-                <p class="item-description">Pão, um delicioso hambúrguer 150g angus, tiras de bacon, alface, tomate, queijo cheddar, molho da casa.</p>
-                <div class="addons-section">
-                    <h4>Turbine seu lanche:</h4>
-                    <div class="addon-item"><input type="checkbox" id="bacon-extra-bacon" data-addon-name="Bacon Extra (em dobro!)" data-addon-price="4.50"><label for="bacon-extra-bacon">Bacon Extra (em dobro!) <span>+ R$ 4,50</span></label></div>
-                    <div class="addon-item"><input type="checkbox" id="cheddar-extra-bacon" data-addon-name="Cheddar Extra" data-addon-price="3.00"><label for="cheddar-extra-bacon">Cheddar Extra <span>+ R$ 3,00</span></label></div>
+                <div class="item-action">
+                    <p class="price">a partir de R$ 25,00</p>
+                    <div class="quantity-control-menu">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">1</span>
+                        <button class="btn-plus">+</button>
+                    </div>
+                    <button class="add-to-cart-btn">Adicionar</button>
                 </div>
-                <p class="price">a partir de R$ 28,00</p>
-            </div>
-            <div class="item-image-action-wrapper">
-                <img class="item-image" src="imagens/burger-bacon.jpg" alt="Hambúrguer Bacon">
-                <div class="item-action"><button class="add-to-cart-btn">Adicionar</button></div>
             </div>
         </div>
 
-        <h2 class="menu-category" data-category="drink">🥤 Bebidas</h2>
-
+        <h2 class="menu-category" id="category-drink">🥤 Bebidas</h2>
         <div class="menu-item" data-name="Coca-Cola Lata" data-price="5.00" data-type="drink">
+            <img class="item-image" src="imagens/coca-cola.jpg" alt="Coca-Cola Lata">
             <div class="item-details">
                 <h3>Coca-Cola Lata</h3>
                 <p class="item-description">Lata de 350ml bem gelada.</p>
-                <p class="price">R$ 5,00</p>
-            </div>
-            <div class="item-image-action-wrapper">
-                <img class="item-image" src="imagens/coca-cola.jpg" alt="Coca-Cola Lata">
-                <div class="item-action"><button class="add-to-cart-btn">Adicionar</button></div>
+                <div class="item-action">
+                    <p class="price">R$ 5,00</p>
+                    <div class="quantity-control-menu">
+                        <button class="btn-minus">-</button>
+                        <span class="quantity">1</span>
+                        <button class="btn-plus">+</button>
+                    </div>
+                    <button class="add-to-cart-btn">Adicionar</button>
+                </div>
             </div>
         </div>
     </section>
@@ -83,14 +73,25 @@
     <section id="checkout">
         <h2>✔ Quase lá! Confira seu pedido:</h2>
         <div class="cart-card">
-            <div id="cart-summary"><p>Seu carrinho está vazio.</p></div>
-            <div class="final-total"><span>Total</span><span id="total">R$ 0,00</span></div>
+            <div id="cart-summary">
+                <p>Seu carrinho está vazio.</p>
+            </div>
+            <div class="final-total">
+                <span>Total</span>
+                <span id="total">R$ 0,00</span>
+            </div>
         </div>
         <div id="min-order-warning"></div>
         <div id="burger-required-warning"></div>
         <form id="checkout-form">
-            <div class="form-group"><label for="name">📝 Seu Nome:</label><input type="text" id="name" required placeholder="Digite seu nome completo"></div>
-            <div class="form-group"><label for="address">📍 Endereço de Entrega:</label><input type="text" id="address" required placeholder="Rua, Número, Bairro e Referência"></div>
+            <div class="form-group">
+                <label for="name">📝 Seu Nome:</label>
+                <input type="text" id="name" required placeholder="Digite seu nome completo">
+            </div>
+            <div class="form-group">
+                <label for="address">📍 Endereço de Entrega:</label>
+                <input type="text" id="address" required placeholder="Rua, Número, Bairro e Referência">
+            </div>
             <button type="submit">Confirmar e Enviar Pedido</button>
         </form>
     </section>
@@ -98,13 +99,20 @@
 
 <script src="script.js"></script>
 <div class="cart-footer">
-    <div class="footer-total"><span class="total-label">Total do Carrinho:</span><span id="footer-cart-total">R$ 0,00</span></div>
+    <div class="footer-total">
+        <span class="total-label">Total do Carrinho:</span>
+        <span id="footer-cart-total">R$ 0,00</span>
+    </div>
     <button id="view-cart-btn">Ver Carrinho</button>
 </div>
+
 <div id="confirmation-dialog-overlay">
     <div id="confirmation-dialog">
-        <p>Deseja remover este item do carrinho?</p>
-        <div class="dialog-buttons"><button id="cancel-remove-btn">Não</button><button id="confirm-remove-btn">Sim, remover</button></div>
+        <p id="dialog-message">Deseja remover este item do carrinho?</p>
+        <div class="dialog-buttons">
+            <button id="cancel-remove-btn">Não</button>
+            <button id="confirm-remove-btn">Sim, remover</button>
+        </div>
     </div>
 </div>
 
