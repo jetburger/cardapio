@@ -125,7 +125,31 @@ body {
 #checkout h2 { text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 25px; }
 .cart-card { background-color: var(--ifood-white); border: 1px solid var(--ifood-border); border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 25px; }
 #cart-summary { background-color: transparent; border: none; padding: 0; display: flex; flex-direction: column; gap: 0; }
-.cart-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--ifood-border); flex-wrap: wrap; }
+.cart-item {
+    display: flex;
+    align-items: center; /* Alinha verticalmente a imagem com o texto */
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--ifood-border);
+    flex-wrap: nowrap; /* Impede a quebra de linha em telas maiores */
+    gap: 10px;
+}
+/* NOVIDADE: Estilo da miniatura da imagem no carrinho */
+.cart-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--ifood-border);
+    flex-shrink: 0;
+}
+
+/* NOVIDADE: Estilo para o preço total do item no carrinho */
+.cart-item-total-price {
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 15px;
+}
 .cart-item:first-child { border-top: 1px solid var(--ifood-border); }
 .cart-item:last-child { border-bottom: none; }
 .cart-item-details { flex-grow: 1; }
@@ -133,7 +157,13 @@ body {
 .cart-item-addons { font-size: 0.85em; color: var(--ifood-text-light); line-height: 1.5; padding-left: 10px; display: flex; flex-direction: column; }
 .cart-addon-item { display: block; }
 .cart-item-price-unit { font-size: 0.85em; color: var(--ifood-text-light); margin: 5px 0 0 0; }
-.cart-quantity-control { display: flex; align-items: center; border: 1px solid var(--ifood-border); border-radius: 4px; margin-left: 15px; }
+.cart-quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--ifood-border);
+    border-radius: 4px;
+    /* margin-left: 15px; REMOVIDO */
+}
 .cart-quantity-control button { background-color: transparent; border: none; color: var(--ifood-red); font-size: 1.2em; cursor: pointer; width: 30px; height: 30px; }
 .cart-quantity-control .cart-quantity { font-size: 1em; font-weight: 500; padding: 0 5px; min-width: 20px; text-align: center; }
 .final-total { display: flex; justify-content: space-between; font-size: 1.2em; font-weight: bold; padding-top: 20px; }

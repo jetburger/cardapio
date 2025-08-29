@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     let itemToRemoveId = null;
 
-    // Referências aos elementos do DOM
     const cartSummary = document.getElementById('cart-summary');
     const totalElement = document.getElementById('total');
     const checkoutForm = document.getElementById('checkout-form');
@@ -15,13 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewCartBtn = document.getElementById('view-cart-btn');
     const minOrderWarning = document.getElementById('min-order-warning');
     const submitButton = document.querySelector('button[type="submit"]');
-    // CORREÇÃO: Agora este elemento existe no HTML e o script não vai mais quebrar
     const burgerRequiredWarning = document.getElementById('burger-required-warning');
     const confirmationDialogOverlay = document.getElementById('confirmation-dialog-overlay');
     const confirmRemoveBtn = document.getElementById('confirm-remove-btn');
     const cancelRemoveBtn = document.getElementById('cancel-remove-btn');
 
-    // Lógica dos Filtros
     const filterButtons = document.querySelectorAll('.filter-btn');
     const menuItems = document.querySelectorAll('.menu-item');
     const menuCategories = document.querySelectorAll('.menu-category');
@@ -53,18 +50,22 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
+
             let addonsText = item.addons.length > 0 ? item.addons.map(addon => `<span class="cart-addon-item">+ ${addon.name}</span>`).join('') : '';
+
+            // NOVIDADE: Adicionamos a tag <img> com a miniatura
             itemElement.innerHTML = `
+                <img src="${item.imageSrc}" alt="${item.baseName}" class="cart-item-image">
                 <div class="cart-item-details">
-                    <p class="cart-item-name"><strong>${item.baseName}</strong></p>
+                    <p class="cart-item-name"><strong>${item.quantity}x ${item.baseName}</strong></p>
                     <div class="cart-item-addons">${addonsText}</div>
-                    <p class="cart-item-price-unit">R$ ${item.unitPrice.toFixed(2).replace('.', ',')} /unid.</p>
                 </div>
                 <div class="cart-quantity-control">
                     <button class="cart-btn-minus" data-item-id="${item.id}">-</button>
                     <span class="cart-quantity">${item.quantity}</span>
                     <button class="cart-btn-plus" data-item-id="${item.id}">+</button>
                 </div>
+                <p class="cart-item-total-price">R$ ${(item.unitPrice * item.quantity).toFixed(2).replace('.', ',')}</p>
             `;
             cartSummary.appendChild(itemElement);
             total += item.unitPrice * item.quantity;
@@ -73,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         totalElement.textContent = totalFormatted;
         footerCartTotal.textContent = totalFormatted;
         cartFooter.classList.add('visible');
+
         validateOrder();
         addCartButtonListeners();
     }
@@ -105,6 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemType = menuItem.dataset.type;
         const baseName = menuItem.dataset.name;
         const basePrice = parseFloat(menuItem.dataset.price);
+        // NOVIDADE: Captura o caminho da imagem do item
+        const imageSrc = menuItem.querySelector('.item-image').getAttribute('src');
+
         let addons = [];
         const addonCheckboxes = menuItem.querySelectorAll('.addon-item input[type="checkbox"]:checked');
         addonCheckboxes.forEach(checkbox => {
@@ -113,12 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const addonsId = addons.map(a => a.name).sort().join(',');
         const itemId = `${baseName}-${addonsId}`;
         const existingItem = cart.find(item => item.id === itemId);
+
         if (existingItem) {
             existingItem.quantity++;
         } else {
             let unitPrice = basePrice;
             addons.forEach(addon => unitPrice += addon.price);
-            cart.push({ id: itemId, baseName, addons, unitPrice, quantity: 1, type: itemType });
+
+            cart.push({
+                id: itemId,
+                baseName,
+                addons,
+                unitPrice,
+                quantity: 1,
+                type: itemType,
+                imageSrc // NOVIDADE: Salva o caminho da imagem no objeto do carrinho
+            });
         }
         renderCart();
         addonCheckboxes.forEach(checkbox => checkbox.checked = false);
