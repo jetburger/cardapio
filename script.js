@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const seuNumeroDeWhatsApp = '5547992823827'; // COLOQUE SEU NÚMERO AQUI
+    const seuNumeroDeWhatsApp = '5547992853827'; // COLOQUE SEU NÚMERO AQUI
     const valorMinimoPedido = 25.00;
 
     let cart = [];
