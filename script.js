@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const seuNumeroDeWhatsApp = '5547992853827'; // COLOQUE SEU NÚMERO AQUI
-    const valorMinimoPedido = 20.00;
+    const valorMinimoPedido = 25.00;
 
     let cart = [];
     let itemToRemoveId = null;
 
+    // Referências aos elementos do DOM
     const cartSummary = document.getElementById('cart-summary');
     const totalElement = document.getElementById('total');
     const checkoutForm = document.getElementById('checkout-form');
@@ -18,9 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmRemoveBtn = document.getElementById('confirm-remove-btn');
     const cancelRemoveBtn = document.getElementById('cancel-remove-btn');
     const dialogMessage = document.getElementById('dialog-message');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const menuCategories = document.querySelectorAll('.menu-category');
 
     // --- LÓGICA DOS FILTROS (SCROLL) ---
-    const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
             const filter = button.dataset.filter;
@@ -47,12 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('cart-item');
-
-            // CORREÇÃO: Exibição dos adicionais no carrinho
-            let addonsText = '';
-            if (item.addons.length > 0) {
-                addonsText = item.addons.map(addon => `<span class="cart-addon-item">+ ${addon.name}</span>`).join('');
-            }
+            let addonsText = item.addons.length > 0 ? item.addons.map(addon => `<span class="cart-addon-item">+ ${addon.name}</span>`).join('') : '';
 
             itemElement.innerHTML = `
                 <img src="${item.imageSrc}" alt="${item.baseName}" class="cart-item-image">
@@ -90,16 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const hasBurger = cart.some(item => item.type === 'burger');
         const missingAmount = valorMinimoPedido - total;
         let isOrderValid = true;
-
         minOrderWarning.style.display = 'none';
         if (burgerRequiredWarning) burgerRequiredWarning.style.display = 'none';
-
         if (total > 0 && total < valorMinimoPedido) {
             minOrderWarning.textContent = `Faltam R$ ${missingAmount.toFixed(2).replace('.', ',')} para o pedido mínimo de R$ ${valorMinimoPedido.toFixed(2).replace('.', ',')}.`;
             minOrderWarning.style.display = 'block';
             isOrderValid = false;
         }
-
         if (cart.length > 0 && !hasBurger) {
             if (burgerRequiredWarning) {
                 burgerRequiredWarning.textContent = 'É necessário adicionar pelo menos um hambúrguer ao seu pedido.';
@@ -153,45 +148,63 @@ document.addEventListener('DOMContentLoaded', () => {
         confirmationDialogOverlay.classList.remove('visible');
     }
 
+    // --- CORREÇÃO FINAL APLICADA AQUI ---
     function addCartButtonListeners() {
-        cartSummary.addEventListener('click', (e) => {
-            const target = e.target;
-            const itemId = target.dataset.itemId;
-            if (!itemId && !target.closest('[data-item-id]')) return;
-            const finalItemId = itemId || target.closest('[data-item-id]').dataset.itemId;
+        // Seleciona todos os botões e links DENTRO do carrinho atualizado
+        const plusButtons = cartSummary.querySelectorAll('.cart-btn-plus');
+        const minusButtons = cartSummary.querySelectorAll('.cart-btn-minus');
+        const trashButtons = cartSummary.querySelectorAll('.trash-btn');
+        const observationLinks = cartSummary.querySelectorAll('.add-observation-link');
+        const observationTextareas = cartSummary.querySelectorAll('.observation-text');
 
-            const itemInCart = cart.find(item => item.id === finalItemId);
-            if (!itemInCart) return;
-
-            if (target.classList.contains('cart-btn-plus')) {
-                itemInCart.quantity++;
-                renderCart();
-            } else if (target.classList.contains('cart-btn-minus')) {
-                if (itemInCart.quantity > 1) {
-                    itemInCart.quantity--;
-                    renderCart();
-                } else {
-                    showConfirmationDialog(finalItemId);
-                }
-            } else if (target.classList.contains('trash-btn')) {
-                showConfirmationDialog(finalItemId);
-            } else if (target.classList.contains('add-observation-link')) {
-                e.preventDefault();
-                const textarea = target.nextElementSibling;
-                textarea.classList.toggle('visible');
-                if (textarea.classList.contains('visible')) textarea.focus();
-            }
+        plusButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const itemId = e.target.dataset.itemId;
+                const itemInCart = cart.find(item => item.id === itemId);
+                if (itemInCart) { itemInCart.quantity++; renderCart(); }
+            });
         });
 
-        cartSummary.addEventListener('input', (e) => {
-            const target = e.target;
-            if (target.classList.contains('observation-text')) {
-                const itemId = target.dataset.itemId;
+        minusButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const itemId = e.target.dataset.itemId;
                 const itemInCart = cart.find(item => item.id === itemId);
                 if (itemInCart) {
-                    itemInCart.observation = target.value;
+                    if (itemInCart.quantity > 1) {
+                        itemInCart.quantity--;
+                        renderCart();
+                    } else {
+                        showConfirmationDialog(itemId);
+                    }
                 }
-            }
+            });
+        });
+
+        trashButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Pega o ID do botão clicado, mesmo que o clique seja no emoji dentro dele
+                const itemId = e.target.closest('[data-item-id]').dataset.itemId;
+                showConfirmationDialog(itemId);
+            });
+        });
+
+        observationLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const textarea = link.nextElementSibling;
+                textarea.classList.toggle('visible');
+                if (textarea.classList.contains('visible')) textarea.focus();
+            });
+        });
+
+        observationTextareas.forEach(textarea => {
+            textarea.addEventListener('input', (e) => {
+                const itemId = e.target.dataset.itemId;
+                const itemInCart = cart.find(item => item.id === itemId);
+                if (itemInCart) {
+                    itemInCart.observation = e.target.value;
+                }
+            });
         });
     }
 
